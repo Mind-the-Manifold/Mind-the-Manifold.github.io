@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>
+      Mind the Manifold: Representation Choices in Learning Stable Full-Pose
+      Dynamical Systems
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Noto+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="static/vendor/katex/katex.min.css" />
+    <link rel="stylesheet" href="static/css/index.css" />
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="page has-text-centered">
+          <h1 class="title publication-title">
+            <span class="title-main">Mind the Manifold</span>
+            <span class="title-sub">
+              Representation Choices in Learning Stable Full-Pose Dynamical
+              Systems
+            </span>
+          </h1>
+          <p class="publication-authors">Anonymous authors, under review</p>
+          <div class="publication-links">
+            <span
+              class="button is-dark is-rounded is-disabled"
+              id="code-button"
+              role="button"
+              tabindex="0"
+              aria-disabled="true"
+              aria-describedby="code-note"
+              title="Code will be shared publicly upon acceptance."
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
+              </svg>
+              <span>Code</span>
+            </span>
+            <p class="hero-note" id="code-note" role="status">
+              Code will be shared publicly upon acceptance.
+            </p>
+            <a class="button is-dark is-rounded" href="#viewer">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2" />
+                <path d="M3 9.5h18M9 9.5V20" />
+              </svg>
+              <span>Explore all 3,960 runs</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section teaser">
+      <div class="page">
+        <figure>
+          <img
+            src="static/images/cover.png"
+            alt="The four design axes of the system: manifold representation, tangent space for velocities, velocity reference frame, velocity parameterisation"
+          />
+          <figcaption>
+            Overview of the representation choices for learning full-pose
+            dynamical systems organized into four axes.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="page">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="prose">
+          <p>
+            Learning dynamical systems is a promising route to full-pose robot
+            motion policies that are expressive, safe, and generalizable. These
+            properties arise from inductive biases that capture the
+            non-Euclidean geometry of the state space and enforce convergence to
+            a goal pose. Integrating them raises several design choices whose
+            practical consequences remain unclear. In this paper, we analyze
+            these alternatives theoretically and compare them empirically along
+            four axes: <em>manifold representation of the pose</em>, <em>tangent
+            space in which velocities are learned</em>, <em>velocity reference
+            frame</em>, and <em>velocity parametrization</em>. We compare three
+            full-pose dynamical systems: one without stability guarantees and
+            two stable systems based on diffeomorphisms defined on the Lie
+            algebra or directly on the manifold. Our results indicate that
+            homogeneous matrices, unit quaternions, and unit dual quaternions
+            perform interchangeably, while Euler angles degrade sharply near
+            gimbal lock. In contrast, the diffeomorphism proves decisive:
+            defining it directly between manifolds, with velocities learned in
+            the tangent space of the current state, yields the highest accuracy
+            across all models.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="page">
+        <h2 class="title is-3">Method</h2>
+        <p class="lede">
+          We train three full-pose dynamical systems: an MLP, which admits every
+          combination of the four axes, and two stable systems whose learned
+          diffeomorphism is defined either on Euclidean representations
+          (\(\boldsymbol{\psi}\)) or between manifolds
+          (\(\boldsymbol{\psi}_{\mathcal{M}}\)). We refer to the paper for
+          details.
+        </p>
+        <div class="method-tables">
+          <div class="table-scroll">
+            <table class="paper-table config-table">
+              <thead>
+                <tr>
+                  <th rowspan="2" class="txt">Config.&nbsp;ID</th>
+                  <th rowspan="2" class="txt">Input space</th>
+                  <th rowspan="2" class="txt">Vel. space</th>
+                  <th rowspan="2" class="txt">Frame</th>
+                  <th rowspan="2" class="txt">Param.</th>
+                  <th rowspan="2">
+                    DS<br /><span class="sub-head">(MLP)</span>
+                  </th>
+                  <th class="group" colspan="2"><span>Stable DS</span></th>
+                </tr>
+                <tr>
+                  <th>
+                    <span class="gloss" data-g="psi"
+                      >\(\boldsymbol{\psi}\)</span
+                    >
+                  </th>
+                  <th>
+                    <span class="gloss" data-g="psi_M"
+                      >\(\boldsymbol{\psi}_{\mathcal{M}}\)</span
+                    >
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="txt">
+                    \(\mathfrak{m}_{\mathrm{spatial}}^{\wedge}\)
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="M">\(\mathcal{M}\)</span>
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="m">\(\mathfrak{m}\)</span>
+                  </td>
+                  <td class="txt">Spatial</td>
+                  <td class="txt">
+                    <span class="gloss" data-g="hat">\((\cdot)^{\wedge}\)</span>
+                  </td>
+                  <td class="yes">✓</td>
+                  <td class="no">✗</td>
+                  <td class="no">✗</td>
+                </tr>
+                <tr>
+                  <td class="txt">\(\mathfrak{m}_{\mathrm{body}}^{\wedge}\)</td>
+                  <td class="txt">
+                    <span class="gloss" data-g="M">\(\mathcal{M}\)</span>
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="m">\(\mathfrak{m}\)</span>
+                  </td>
+                  <td class="txt">Body</td>
+                  <td class="txt">
+                    <span class="gloss" data-g="hat">\((\cdot)^{\wedge}\)</span>
+                  </td>
+                  <td class="yes">✓</td>
+                  <td class="no">✗</td>
+                  <td class="no">✗</td>
+                </tr>
+                <tr>
+                  <td class="txt">
+                    \(\mathcal{T}_{\boldsymbol{e}}\mathcal{M}^{\Pi_{\boldsymbol{e}}}\)
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="M">\(\mathcal{M}\)</span>
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="m">\(\mathfrak{m}\)</span>
+                  </td>
+                  <td class="txt">Body</td>
+                  <td class="txt">
+                    <span class="gloss" data-g="Pie"
+                      >\(\Pi_{\boldsymbol{e}}\)</span
+                    >
+                  </td>
+                  <td class="yes">✓</td>
+                  <td class="no">✗</td>
+                  <td class="no">✗</td>
+                </tr>
+                <tr>
+                  <td class="txt">
+                    \(\mathcal{T}_{\boldsymbol{x}}\mathcal{M}^{\Pi_{\boldsymbol{x}}}\)
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="M">\(\mathcal{M}\)</span>
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="Tx"
+                      >\(\mathcal{T}_{\boldsymbol{x}}\mathcal{M}\)</span
+                    >
+                  </td>
+                  <td class="txt">—</td>
+                  <td class="txt">
+                    <span class="gloss" data-g="Pix"
+                      >\(\Pi_{\boldsymbol{x}}\)</span
+                    >
+                  </td>
+                  <td class="yes">✓<sup>*</sup></td>
+                  <td class="no">✗</td>
+                  <td class="yes">✓</td>
+                </tr>
+                <tr>
+                  <td class="txt">
+                    \({}^{\vee}\mathfrak{m}_{\mathrm{spatial}}^{\wedge}\)
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="m">\(\mathfrak{m}\)</span>
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="m">\(\mathfrak{m}\)</span>
+                  </td>
+                  <td class="txt">Spatial</td>
+                  <td class="txt">
+                    <span class="gloss" data-g="hat">\((\cdot)^{\wedge}\)</span>
+                  </td>
+                  <td class="no">✗</td>
+                  <td class="yes">✓<sup>*</sup></td>
+                  <td class="no">✗</td>
+                </tr>
+                <tr>
+                  <td class="txt">
+                    \({}^{\vee}\mathfrak{m}_{\mathrm{body}}^{\wedge}\)
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="m">\(\mathfrak{m}\)</span>
+                  </td>
+                  <td class="txt">
+                    <span class="gloss" data-g="m">\(\mathfrak{m}\)</span>
+                  </td>
+                  <td class="txt">Body</td>
+                  <td class="txt">
+                    <span class="gloss" data-g="hat">\((\cdot)^{\wedge}\)</span>
+                  </td>
+                  <td class="no">✗</td>
+                  <td class="yes">✓</td>
+                  <td class="no">✗</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <table class="paper-table notation-table">
+            <thead>
+              <tr>
+                <th class="txt first-col" colspan="2">Notation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-g="M">
+                <td class="txt">\(\mathcal{M}\)</td>
+                <td class="txt">the pose manifold</td>
+              </tr>
+              <tr data-g="m">
+                <td class="txt">\(\mathfrak{m}\)</td>
+                <td class="txt">the Lie algebra of \(\mathcal{M}\)</td>
+              </tr>
+              <tr data-g="Tx">
+                <td class="txt">\(\mathcal{T}_{\boldsymbol{x}}\mathcal{M}\)</td>
+                <td class="txt">
+                  the tangent space at the current pose \(\boldsymbol{x}\)
+                </td>
+              </tr>
+              <tr data-g="hat">
+                <td class="txt">\((\cdot)^{\wedge}\)</td>
+                <td class="txt">
+                  wedge: \(\mathbb{R}^{6} \rightarrow \mathfrak{m}\), the
+                  velocity as a Lie algebra element
+                </td>
+              </tr>
+              <tr>
+                <td class="txt">\({}^{\vee}(\cdot)\)</td>
+                <td class="txt">
+                  vee: \(\mathfrak{m} \rightarrow \mathbb{R}^{6}\), the inverse
+                  mapping
+                </td>
+              </tr>
+              <tr data-g="Pie Pix">
+                <td class="txt">
+                  \(\Pi_{\boldsymbol{e}}\), \(\Pi_{\boldsymbol{x}}\)
+                </td>
+                <td class="txt">
+                  projection onto \(\mathcal{T}_{\boldsymbol{e}}\mathcal{M}\),
+                  \(\mathcal{T}_{\boldsymbol{x}}\mathcal{M}\)
+                </td>
+              </tr>
+              <tr data-g="psi">
+                <td class="txt">\(\boldsymbol{\psi}\)</td>
+                <td class="txt">Euclidean diffeomorphism</td>
+              </tr>
+              <tr data-g="psi_M">
+                <td class="txt">\(\boldsymbol{\psi}_{\mathcal{M}}\)</td>
+                <td class="txt">manifold diffeomorphism</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption">
+          Summary of the evaluated formulations for each pose representation.
+          Note that, for the flat baseline on \(\mathbb{R}^{6}\), the
+          configurations collapse into a single formulation per model, reported
+          in the configurations marked with <sup>*</sup>.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="page">
+        <h2 class="title is-3">Key findings</h2>
+        <ol class="findings">
+          <li>
+            <p>
+              <b>The geometry of the diffeomorphism is crucial.</b> Defining it
+              directly between manifolds, with velocities learned in the tangent
+              space of the current state, yields the highest accuracy across all
+              models.
+            </p>
+            <div class="table-scroll"><div id="fidelity"></div></div>
+            <p class="caption" id="fidelity-caption"></p>
+          </li>
+          <li>
+            <p>
+              <b
+                >Manifold pose representations and velocity frames are
+                interchangeable.</b
+              >
+              Homogeneous matrices, unit quaternions and unit dual quaternions
+              perform on par across all 22 tasks, as do the spatial and body
+              velocity frames. Thus, both can be chosen to suit the task at
+              hand.
+            </p>
+            <div class="table-scroll"><div id="representations"></div></div>
+            <p class="caption">
+              Accuracy across pose representations on the trimmed 22-task
+              FastUMI dataset, averaged over tasks. All representations are
+              comparable, with gaps small enough to be random variation. Best
+              per configuration in bold.
+            </p>
+          </li>
+          <li>
+            <p>
+              <b>Euler angles are the exception, and they fail predictably.</b>
+              Orientation error degrades sharply wherever the task passes near
+              gimbal lock; every other representation is unaffected.
+            </p>
+            <figure class="stack screw">
+              <img src="static/images/screw_orientation_error.png" alt="" />
+              <figcaption>
+                Orientation error for all pose representations on the
+                four-revolution screwdriving dataset. \(\delta\) is the smallest
+                angular distance to gimbal lock; each spike is a pass near it,
+                twice per revolution.
+              </figcaption>
+            </figure>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="viewer">
+      <div class="page">
+        <h2 class="title is-3">Full results</h2>
+        <p class="lede">
+          Click on a row in the interactive viewer to browse reconstructions and
+          orientation error plots for a specific configuration and task.
+        </p>
+      </div>
+      <div class="vw-container">
+        <div id="run-browser" class="vw"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="page">
+        <p>
+          Page template adapted from
+          <a href="https://nerfies.github.io">Nerfies</a>.
+        </p>
+      </div>
+    </footer>
+
+    <script src="static/vendor/katex/katex.min.js"></script>
+    <script src="static/vendor/katex/auto-render.min.js"></script>
+    <script src="static/js/labels.js"></script>
+    <script src="static/js/index.js"></script>
+    <script src="static/js/viewer.js"></script>
+  </body>
+</html>

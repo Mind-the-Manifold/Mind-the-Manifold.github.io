@@ -1,0 +1,678 @@
+{
+ "fidelity": {
+  "n_tasks": 22,
+  "columns": [
+   {
+    "model": "psi_m",
+    "config": "Tx"
+   },
+   {
+    "model": "psi",
+    "config": "vspatial"
+   },
+   {
+    "model": "psi",
+    "config": "vbody"
+   },
+   {
+    "model": "mlp",
+    "config": "mspatial"
+   },
+   {
+    "model": "mlp",
+    "config": "mbody"
+   },
+   {
+    "model": "mlp",
+    "config": "Te"
+   },
+   {
+    "model": "mlp",
+    "config": "Tx"
+   }
+  ],
+  "rows": [
+   {
+    "metric": "RMSE",
+    "cells": [
+     {
+      "mean": 0.167,
+      "sd": 0.055,
+      "best": true
+     },
+     {
+      "mean": 0.204,
+      "sd": 0.078,
+      "best": false
+     },
+     {
+      "mean": 0.202,
+      "sd": 0.074,
+      "best": false
+     },
+     {
+      "mean": 0.252,
+      "sd": 0.096,
+      "best": false
+     },
+     {
+      "mean": 0.246,
+      "sd": 0.094,
+      "best": false
+     },
+     {
+      "mean": 0.252,
+      "sd": 0.096,
+      "best": false
+     },
+     {
+      "mean": 0.243,
+      "sd": 0.097,
+      "best": false
+     }
+    ]
+   },
+   {
+    "metric": "FD",
+    "cells": [
+     {
+      "mean": 0.125,
+      "sd": 0.039,
+      "best": true
+     },
+     {
+      "mean": 0.158,
+      "sd": 0.058,
+      "best": false
+     },
+     {
+      "mean": 0.168,
+      "sd": 0.072,
+      "best": false
+     },
+     {
+      "mean": 0.244,
+      "sd": 0.096,
+      "best": false
+     },
+     {
+      "mean": 0.231,
+      "sd": 0.084,
+      "best": false
+     },
+     {
+      "mean": 0.239,
+      "sd": 0.089,
+      "best": false
+     },
+     {
+      "mean": 0.234,
+      "sd": 0.092,
+      "best": false
+     }
+    ]
+   },
+   {
+    "metric": "DTWD",
+    "cells": [
+     {
+      "mean": 0.047,
+      "sd": 0.013,
+      "best": true
+     },
+     {
+      "mean": 0.06,
+      "sd": 0.023,
+      "best": false
+     },
+     {
+      "mean": 0.062,
+      "sd": 0.026,
+      "best": false
+     },
+     {
+      "mean": 0.076,
+      "sd": 0.04,
+      "best": false
+     },
+     {
+      "mean": 0.07,
+      "sd": 0.03,
+      "best": false
+     },
+     {
+      "mean": 0.072,
+      "sd": 0.033,
+      "best": false
+     },
+     {
+      "mean": 0.069,
+      "sd": 0.036,
+      "best": false
+     }
+    ]
+   }
+  ]
+ },
+ "representations": {
+  "n_tasks": 22,
+  "columns": [
+   "euler_angles",
+   "matrices",
+   "quaternions",
+   "dual_quaternions"
+  ],
+  "blocks": [
+   {
+    "metric": "RMSE",
+    "groups": [
+     {
+      "label": "Full-pose DS (MLP)",
+      "rows": [
+       {
+        "config": "mspatial",
+        "cells": [
+         null,
+         {
+          "mean": 0.242,
+          "sd": 0.096,
+          "best": true
+         },
+         {
+          "mean": 0.258,
+          "sd": 0.102,
+          "best": false
+         },
+         {
+          "mean": 0.256,
+          "sd": 0.094,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "mbody",
+        "cells": [
+         null,
+         {
+          "mean": 0.233,
+          "sd": 0.091,
+          "best": true
+         },
+         {
+          "mean": 0.253,
+          "sd": 0.102,
+          "best": false
+         },
+         {
+          "mean": 0.254,
+          "sd": 0.093,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "Te",
+        "cells": [
+         null,
+         {
+          "mean": 0.24,
+          "sd": 0.101,
+          "best": true
+         },
+         {
+          "mean": 0.257,
+          "sd": 0.102,
+          "best": false
+         },
+         {
+          "mean": 0.259,
+          "sd": 0.089,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "Tx",
+        "cells": [
+         {
+          "mean": 0.235,
+          "sd": 0.107,
+          "best": false
+         },
+         {
+          "mean": 0.229,
+          "sd": 0.097,
+          "best": true
+         },
+         {
+          "mean": 0.257,
+          "sd": 0.103,
+          "best": false
+         },
+         {
+          "mean": 0.244,
+          "sd": 0.092,
+          "best": false
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "label": "Full-pose stable DS",
+      "rows": [
+       {
+        "config": "Tx",
+        "cells": [
+         null,
+         {
+          "mean": 0.161,
+          "sd": 0.055,
+          "best": true
+         },
+         {
+          "mean": 0.169,
+          "sd": 0.057,
+          "best": false
+         },
+         {
+          "mean": 0.171,
+          "sd": 0.056,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "vspatial",
+        "cells": [
+         {
+          "mean": 0.159,
+          "sd": 0.055,
+          "best": true
+         },
+         {
+          "mean": 0.203,
+          "sd": 0.084,
+          "best": false
+         },
+         {
+          "mean": 0.199,
+          "sd": 0.074,
+          "best": false
+         },
+         {
+          "mean": 0.209,
+          "sd": 0.079,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "vbody",
+        "cells": [
+         null,
+         {
+          "mean": 0.2,
+          "sd": 0.077,
+          "best": false
+         },
+         {
+          "mean": 0.193,
+          "sd": 0.072,
+          "best": true
+         },
+         {
+          "mean": 0.214,
+          "sd": 0.076,
+          "best": false
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "metric": "FD",
+    "groups": [
+     {
+      "label": "Full-pose DS (MLP)",
+      "rows": [
+       {
+        "config": "mspatial",
+        "cells": [
+         null,
+         {
+          "mean": 0.243,
+          "sd": 0.098,
+          "best": false
+         },
+         {
+          "mean": 0.253,
+          "sd": 0.096,
+          "best": false
+         },
+         {
+          "mean": 0.235,
+          "sd": 0.099,
+          "best": true
+         }
+        ]
+       },
+       {
+        "config": "mbody",
+        "cells": [
+         null,
+         {
+          "mean": 0.224,
+          "sd": 0.089,
+          "best": true
+         },
+         {
+          "mean": 0.245,
+          "sd": 0.077,
+          "best": false
+         },
+         {
+          "mean": 0.225,
+          "sd": 0.087,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "Te",
+        "cells": [
+         null,
+         {
+          "mean": 0.225,
+          "sd": 0.09,
+          "best": true
+         },
+         {
+          "mean": 0.254,
+          "sd": 0.076,
+          "best": false
+         },
+         {
+          "mean": 0.238,
+          "sd": 0.1,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "Tx",
+        "cells": [
+         {
+          "mean": 0.225,
+          "sd": 0.099,
+          "best": false
+         },
+         {
+          "mean": 0.225,
+          "sd": 0.086,
+          "best": true
+         },
+         {
+          "mean": 0.246,
+          "sd": 0.093,
+          "best": false
+         },
+         {
+          "mean": 0.23,
+          "sd": 0.099,
+          "best": false
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "label": "Full-pose stable DS",
+      "rows": [
+       {
+        "config": "Tx",
+        "cells": [
+         null,
+         {
+          "mean": 0.119,
+          "sd": 0.04,
+          "best": true
+         },
+         {
+          "mean": 0.125,
+          "sd": 0.038,
+          "best": false
+         },
+         {
+          "mean": 0.132,
+          "sd": 0.039,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "vspatial",
+        "cells": [
+         {
+          "mean": 0.115,
+          "sd": 0.048,
+          "best": true
+         },
+         {
+          "mean": 0.149,
+          "sd": 0.053,
+          "best": false
+         },
+         {
+          "mean": 0.161,
+          "sd": 0.056,
+          "best": false
+         },
+         {
+          "mean": 0.165,
+          "sd": 0.065,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "vbody",
+        "cells": [
+         null,
+         {
+          "mean": 0.154,
+          "sd": 0.061,
+          "best": true
+         },
+         {
+          "mean": 0.162,
+          "sd": 0.065,
+          "best": false
+         },
+         {
+          "mean": 0.187,
+          "sd": 0.087,
+          "best": false
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "metric": "DTWD",
+    "groups": [
+     {
+      "label": "Full-pose DS (MLP)",
+      "rows": [
+       {
+        "config": "mspatial",
+        "cells": [
+         null,
+         {
+          "mean": 0.069,
+          "sd": 0.031,
+          "best": true
+         },
+         {
+          "mean": 0.085,
+          "sd": 0.042,
+          "best": false
+         },
+         {
+          "mean": 0.074,
+          "sd": 0.045,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "mbody",
+        "cells": [
+         null,
+         {
+          "mean": 0.064,
+          "sd": 0.028,
+          "best": true
+         },
+         {
+          "mean": 0.079,
+          "sd": 0.033,
+          "best": false
+         },
+         {
+          "mean": 0.067,
+          "sd": 0.03,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "Te",
+        "cells": [
+         null,
+         {
+          "mean": 0.061,
+          "sd": 0.03,
+          "best": true
+         },
+         {
+          "mean": 0.081,
+          "sd": 0.029,
+          "best": false
+         },
+         {
+          "mean": 0.073,
+          "sd": 0.037,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "Tx",
+        "cells": [
+         {
+          "mean": 0.07,
+          "sd": 0.041,
+          "best": false
+         },
+         {
+          "mean": 0.057,
+          "sd": 0.025,
+          "best": true
+         },
+         {
+          "mean": 0.081,
+          "sd": 0.042,
+          "best": false
+         },
+         {
+          "mean": 0.068,
+          "sd": 0.036,
+          "best": false
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "label": "Full-pose stable DS",
+      "rows": [
+       {
+        "config": "Tx",
+        "cells": [
+         null,
+         {
+          "mean": 0.042,
+          "sd": 0.01,
+          "best": true
+         },
+         {
+          "mean": 0.049,
+          "sd": 0.013,
+          "best": false
+         },
+         {
+          "mean": 0.049,
+          "sd": 0.013,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "vspatial",
+        "cells": [
+         {
+          "mean": 0.04,
+          "sd": 0.01,
+          "best": true
+         },
+         {
+          "mean": 0.058,
+          "sd": 0.022,
+          "best": false
+         },
+         {
+          "mean": 0.063,
+          "sd": 0.023,
+          "best": false
+         },
+         {
+          "mean": 0.06,
+          "sd": 0.024,
+          "best": false
+         }
+        ]
+       },
+       {
+        "config": "vbody",
+        "cells": [
+         null,
+         {
+          "mean": 0.057,
+          "sd": 0.025,
+          "best": true
+         },
+         {
+          "mean": 0.062,
+          "sd": 0.021,
+          "best": false
+         },
+         {
+          "mean": 0.067,
+          "sd": 0.032,
+          "best": false
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

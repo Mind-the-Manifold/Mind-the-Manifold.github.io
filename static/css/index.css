@@ -1,0 +1,352 @@
+:root {
+  --ink: #1f2328;
+  --muted: #646b73;
+  --rule: #e1e4e8;
+  --panel: #f6f8fa;
+  --accent: #2c5f8a;
+  --accent-soft: #e8f0f7;
+  /* One measure for the whole page, the browser panel included. */
+  --page: 1120px;
+}
+
+html { font-size: 17px; }
+body {
+  font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: #fff;
+  line-height: 1.6;
+}
+a { color: var(--accent); }
+a:hover { color: var(--ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* type */
+.title, .publication-title {
+  font-family: Castoro, Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  color: var(--ink);
+}
+.title.is-3 { font-size: 1.85rem; margin: 0 0 0.9rem; }
+.publication-title {
+  font-size: 2.55rem;
+  line-height: 1.18;
+  max-width: 34ch;
+  margin: 0 auto 1.1rem;
+}
+/* The name carries the weight; the subtitle sits under it, smaller, so the two read as a
+   title and its explanation rather than as one 88-character sentence. */
+.publication-title .title-main { display: block; font-weight: 700; }
+.publication-title .title-sub {
+  display: block; font-size: 0.6em; line-height: 1.22; margin-top: 0.5rem; color: var(--ink);
+}
+.publication-authors { font-size: 1.1rem; color: var(--muted); margin-bottom: 1.4rem; }
+.publication-links .button { margin: 0 0.25rem 0.5rem; font-size: 0.95rem; }
+/* The code link does not exist yet, so the button is present but dead: a button that looks
+   live and goes nowhere is worse than one that says why. */
+.publication-links .button.is-disabled {
+  background: #eceef1; border-color: #eceef1; color: #8d939b; cursor: not-allowed;
+}
+/* The note explains a dead button, so it only has to be there when someone asks: on hover,
+   on focus, or on a tap. Positioned out of flow so revealing it does not push the page. */
+.publication-links { position: relative; }
+.hero-note {
+  position: absolute; left: 50%; transform: translateX(-50%); top: 100%;
+  margin: 0; white-space: nowrap; color: var(--muted); font-size: 0.86rem;
+  opacity: 0; pointer-events: none;
+}
+/* Three separate rules on purpose: one unsupported selector in a list invalidates the
+   whole list, and this reveal is the only thing that shows the note. */
+#code-button:hover ~ .hero-note { opacity: 1; }
+#code-button:focus-visible ~ .hero-note { opacity: 1; }
+.publication-links.note-open .hero-note { opacity: 1; }
+#code-button { cursor: help; }
+/* Drawn inline rather than pulled from an icon font: two glyphs are not worth a third
+   request, and an anonymous review page is better off asking for as little as it can. */
+.publication-links .button svg {
+  width: 1.05em; height: 1.05em; margin-right: 0.5em;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.hero-body { padding: 4.5rem 1.5rem 2rem; }
+
+.section { padding: 1.85rem 1.5rem; }
+/* One measure for every section, so their edges line up all the way down the page. Bulma's
+   own .container classes are not used: they come in three widths and the page wants one.
+   The browser is the exception and has its own, wider measure: it is a 664px table beside a
+   plot, and both are unusable at the width that reads well for text. */
+.page { max-width: var(--page); margin: 0 auto; }
+.vw-container { max-width: var(--page); margin: 0 auto; }
+/* A rule between blocks is a section-level mark, so it takes the section's measure rather
+   than the full width of the <section>'s content box. */
+hr { max-width: var(--page); margin: 2.4rem auto; height: 1px; background: var(--rule); border: 0; }
+.teaser { padding-top: 1rem; }
+figure img { width: 100%; height: auto; display: block; }
+figcaption, .caption, .lede { color: var(--muted); font-size: 0.93rem; line-height: 1.55; }
+/* Text runs the full width of the section, flush left, so a heading, its paragraph and the
+   results browser all start and end on the same two lines. Captions are the exception
+   twice over: they take their figure's width, and they are centred, because a caption
+   belongs to the thing above it rather than to the section. */
+figcaption { margin: 0.7rem auto 0; text-align: center; }
+.lede { margin: 0 0 1.4rem; color: var(--ink); }
+.prose { font-size: 1.02rem; }
+.prose p + p { margin-top: 1rem; }
+.todo {
+  color: #8a5a00;
+  background: #fff4d6;
+  padding: 0 0.3em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+/* Key findings: a claim in bold, then the evidence for it. The markers are drawn from a
+   counter rather than the list's own numbers, so the number sits in the same hanging
+   indent the evidence is measured from and can be coloured. */
+.findings { margin: 0; padding: 0; list-style: none; counter-reset: finding; }
+.findings li { position: relative; padding-left: 1.7rem; margin-bottom: 2.4rem; font-size: 1.02rem; counter-increment: finding; }
+.findings li:last-child { margin-bottom: 0; }
+.findings li::before { content: counter(finding) "."; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+/* The claim only. Without `:first-child` this also matched the caption under a finding's
+   table and flattened the space above it. */
+.findings li > p:first-child { margin: 0; }
+/* The evidence for a claim sits under the claim, inside its list item. */
+.findings .table-scroll, .findings figure { margin-top: 1.1rem; }
+.findings figure.stack { margin-bottom: 0; }
+.findings b { font-weight: 600; }
+.figure-grid figure { padding: 0 0.5rem; }
+.figure-grid .column { margin-bottom: 0.8rem; }
+.figure-grid img { max-height: 440px; width: auto; max-width: 100%; margin: 0 auto; }
+
+/* paper tables */
+.table-scroll { overflow-x: auto; }
+.paper-table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.93rem;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+.paper-table th, .paper-table td { padding: 0.32rem 0.75rem; font-weight: 400; }
+/* Spelled out per section rather than as `.paper-table th, td`: Bulma's reset sets an
+   alignment on every cell at the same specificity, and this rule lost to it silently --
+   every cell was left-aligned, which nothing showed because the values are all the same
+   width. The representation table is centred, as its `cccc` columns are in the paper. */
+.paper-table thead th, .paper-table tbody td { text-align: right; }
+.repr-table thead th, .repr-table tbody td { text-align: center; }
+/* The first *column*, not the first cell of any row: a second header row that starts at
+   the tick columns is first-child too, and this flush-left rule was pulling its psi 6px
+   off the ticks underneath it. */
+.paper-table thead tr:first-child th:first-child,
+.paper-table th.first-col,
+.paper-table tbody td:first-child { text-align: left; padding-left: 0; }
+.paper-table thead tr:first-child th { border-top: 1.5px solid var(--ink); }
+.paper-table thead tr:last-child th { border-bottom: 1px solid var(--ink); }
+.paper-table thead th.group { text-align: center; padding-bottom: 0; }
+/* The group rule is booktabs' \cmidrule(lr): it spans the group's columns, not just the
+   width of its label. `display: block` fills the th, and the th's own side padding is the
+   trim at each end. */
+.paper-table thead th.group > span { display: block; border-bottom: 1px solid var(--muted); padding-bottom: 0.12rem; }
+/* `> *`, not `td`: the representation tables label their rows with a `th`, so a `td`-only
+   selector left the closing rule short by the width of that column. */
+.paper-table tbody tr:last-child > * { border-bottom: 1.5px solid var(--ink); }
+.paper-table td.best { font-weight: 600; }
+.paper-table td.txt, .paper-table th.txt { text-align: left; }
+.paper-table tbody tr.group-start td { border-top: 1px solid var(--rule); }
+.caption { margin: 1.3rem 0; text-align: center; }
+/* The Method section is two tables abreast: the configurations, and the notation they are
+   written in. The notation was tried as a definition grid and then as a paragraph under
+   the table; both read as a block of text to be waded through rather than a key to be
+   glanced at. Side by side, the key is where the eye already is. */
+.method-tables {
+  display: grid;
+  grid-template-columns: max-content minmax(0, max-content);
+  gap: 0 1.8rem;
+  /* Centred, not stretched or top-aligned. The two can never be the same height -- the
+     key gains a line whenever a definition wraps -- and stretching Table 1 to match only
+     spreads its rows to hide the difference. Centred, the mismatch reads as a figure with
+     a legend beside it rather than as an alignment that failed. */
+  align-items: center;
+  justify-content: center;
+}
+/* Two columns of words, so left-aligned and allowed to wrap, unlike the numeric tables
+   `.paper-table` is otherwise built for. */
+.notation-table { color: var(--muted); }
+.notation-table thead th, .notation-table tbody td { text-align: left; white-space: normal; }
+.notation-table tbody td:last-child { max-width: 20rem; }
+.notation-table th, .notation-table td { padding: 0.22rem 0.6rem; }
+/* The key is a key, not a second result: the booktabs rules that carry Table 1 are
+   thinned to hairlines here and the type drops to the browser's size, so the eye lands
+   on the configurations first and reads across only when a symbol stops it. */
+.notation-table thead tr:first-child th,
+.notation-table tbody tr:last-child > * { border-width: 1px; border-color: var(--rule); }
+.notation-table thead tr:last-child th { border-bottom-color: var(--rule); }
+.notation-table thead th { color: var(--muted); }
+/* Hovering, focusing or tapping a symbol lights its row in the key -- and hovering a row
+   lights every cell that uses it, which is the question the table cannot answer on its
+   own ("where does m appear?"). */
+.gloss { border-bottom: 1px dotted #b2b9c1; cursor: help; }
+.gloss.on { color: var(--accent); border-bottom-color: var(--accent); outline: none; }
+.notation-table tbody tr[data-g] { cursor: help; }
+.notation-table tbody tr.on td { background: var(--accent-soft); }
+/* Stacked before the two tables would have to shrink. Measured, not guessed: the pair is
+   1012 px wide (608 + 31 + 373), and the section's padding leaves less than that below a
+   1060 px viewport. */
+@media (max-width: 1080px) {
+  .method-tables { grid-template-columns: 1fr; gap: 1.5rem 0; justify-items: center; }
+}
+figure.stack { margin-bottom: 2.2rem; }
+figure.stack img { max-width: 860px; margin: 0 auto; }
+figure.stack figcaption { max-width: 860px; margin-left: auto; margin-right: auto; }
+.title.is-5.sub { margin: 2.4rem 0 0.7rem; }
+.config-table th, .config-table td { padding-top: 0.28rem; padding-bottom: 0.28rem; }
+/* Three tables abreast, one per metric: the same rows stacked would run to three screens.
+   They size to their content and centre as a group; below the text measure they stack. */
+.repr-grid { display: grid; grid-template-columns: repeat(3, max-content); gap: 0 1rem; justify-content: center; }
+/* 0.7rem and tight padding is what it takes for three five-column tables of `mean ± sd` to
+   sit inside the text measure; at the body table's 0.93rem they overflow it by 140px. */
+.repr-grid .paper-table { font-size: 0.7rem; margin: 0; }
+.repr-grid .paper-table th, .repr-grid .paper-table td { padding: 0.26rem 0.3rem; }
+.repr-table caption { font-weight: 600; text-align: center; padding: 0.15rem 0 0.3rem; background: #e8eef3; }
+.repr-table tbody th.txt { font-weight: 400; }
+.repr-table td.group { font-weight: 600; text-align: left; }
+.repr-table tr.group-head td { padding-top: 0.5rem; }
+.repr-table td.none { color: var(--muted); }
+@media (max-width: 1000px) { .repr-grid { grid-template-columns: 1fr; gap: 1.6rem 0; } }
+.config-table td.yes, .config-table td.no { text-align: center; font-size: 0.95em; }
+/* The ticks and crosses are centred, so their headers have to be centred over them too --
+   left-aligned, the narrow psi sat 16px to the left of its own column. */
+.config-table thead th:not(.txt) { text-align: center; }
+.config-table td.yes { color: #1a7f5a; }
+.config-table td.no { color: #b03030; }
+.config-table sup { font-size: 0.7em; }
+.config-table .sub-head { color: var(--muted); font-size: 0.85em; }
+figure.stack.screw { margin-top: 2.6rem; }
+figure.stack.screw img { max-width: 720px; }
+figure.stack.screw figcaption { max-width: 720px; }
+
+/* results browser */
+.vw { border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: #fff; }
+.vw-bar {
+  display: flex; flex-wrap: wrap; gap: 0.7rem 1.2rem; align-items: flex-end;
+  padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--rule); background: var(--panel);
+  font-size: 0.85rem;
+}
+/* One equal column per filter, rather than each select sizing itself to its own longest
+   option: six ragged dropdowns on one line read as clutter, six aligned ones read as a
+   row of controls. They wrap as a block when the bar is too narrow for six. */
+.vw-filters {
+  flex: 1 1 30rem;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.6rem 0.9rem;
+}
+.vw-bar label { display: flex; flex-direction: column; gap: 0.2rem; color: var(--muted); }
+.vw-bar select {
+  font: inherit; padding: 0.22rem 0.4rem; border: 1px solid #cfd4da; border-radius: 4px;
+  background: #fff; color: var(--ink); width: 100%;
+}
+.vw-actions { display: flex; align-items: center; gap: 0.9rem; margin-left: auto; }
+.vw-reset {
+  font: inherit; font-size: 0.85rem; padding: 0.2rem 0.7rem; border: 1px solid #cfd4da;
+  border-radius: 4px; background: #fff; color: var(--ink); cursor: pointer;
+}
+.vw-reset:hover { background: #eef1f4; }
+.vw-count { color: var(--muted); white-space: nowrap; }
+.vw-empty { color: var(--muted); text-align: center; padding: 3rem 1rem; }
+
+/* 61%, not half: the table is 664px and the section is 1120px, so an even split would put
+   the list into horizontal scroll before the reader has touched the divider. */
+.vw-panes { display: grid; grid-template-columns: var(--list-w, 61%) 7px 1fr; height: 700px; }
+.vw-split {
+  cursor: col-resize; background: var(--rule); border: 0; padding: 0;
+  position: relative; touch-action: none;
+}
+.vw-split:hover, .vw-split:focus-visible { background: var(--accent); }
+/* While dragging, the pointer is over the iframe as often as not; without this the plot
+   swallows the move events and the drag stops dead. */
+body.vw-resizing { cursor: col-resize; user-select: none; }
+body.vw-resizing .vw-plot { pointer-events: none; }
+/* `position: relative` is load-bearing. KaTeX hides its MathML copy of every formula in a
+   `position: absolute` span, and without a positioned ancestor those spans are placed
+   against the page rather than against this scroll box -- so the rows scrolled far down
+   inside it stretched the document by thousands of pixels of blank space under the
+   footer. Positioning the box makes it their containing block, and the overflow clips
+   them. Same for the detail pane. */
+.vw-list { overflow: auto; position: relative; border-right: 1px solid var(--rule); font-size: 0.74rem; }
+/* Separate borders, not collapsed: under `border-collapse: collapse` a sticky th's
+   background is not painted above the rows scrolling beneath it, and they show through.
+   Fixed layout, with the widths COLS declares: the list is windowed, so the rows in the
+   DOM change as it scrolls, and an auto-laid-out table would re-fit its columns to
+   whichever rows happen to be on screen. `width: auto` with every column sized means the
+   table is the sum of its columns and no wider, so a list with room to spare centres it
+   instead of stretching one column across the gap. */
+.vw-list table { border-collapse: separate; border-spacing: 0; table-layout: fixed; width: auto; margin: 0 auto; }
+.vw-list thead th {
+  position: sticky; top: 0; z-index: 2; background: #fff; text-align: left; font-weight: 600;
+  color: var(--muted); padding: 0.45rem 0.4rem; border-bottom: 1px solid var(--rule);
+  cursor: pointer; white-space: nowrap; overflow: hidden;
+}
+.vw-arw { font-size: 0.6em; margin-left: 0.15em; vertical-align: 0.12em; }
+.vw-list thead th:hover { color: var(--ink); }
+.vw-list tbody td {
+  padding: 0.28rem 0.4rem; border-bottom: 1px solid #f0f2f4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* The two spacer rows that stand in for the rows outside the window: height only, and no
+   rule of their own, or the list would show a border where nothing is. */
+.vw-list tbody .vw-pad td { padding: 0; border: 0; }
+.vw-list tbody td.vw-empty { padding: 2.5rem 1rem; }
+.vw-list tbody tr { cursor: pointer; }
+.vw-list tbody tr:hover { background: var(--panel); }
+.vw-list tbody tr.sel { background: var(--accent-soft); }
+.vw-list .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.vw-detail { overflow: auto; position: relative; padding: 0.9rem 1.1rem 1.2rem; font-size: 0.9rem; }
+.vw-crumb { font-size: 1rem; }
+.vw-crumb b { font-weight: 600; }
+.vw-crumb > span { color: var(--muted); margin-left: 0.7rem; }
+.vw-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 0.9rem; }
+.vw-chip { border: 1px solid var(--rule); border-radius: 4px; padding: 0.12rem 0.5rem; font-size: 0.8rem; color: var(--muted); }
+.vw-chip b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 600; margin-left: 0.25rem; }
+.vw-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+.vw-demos { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.vw-demo {
+  font: inherit; font-size: 0.8rem; padding: 0.22rem 0.7rem; border: 1px solid #cfd4da;
+  border-radius: 999px; background: #fff; color: var(--ink); cursor: pointer;
+}
+.vw-demo.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.vw-open { font-size: 0.82rem; }
+.vw-plot { width: 100%; height: 430px; border: 1px solid var(--rule); border-radius: 4px; display: block; background: #fff; }
+.vw-imgs { display: grid; grid-template-columns: 1fr; gap: 0.8rem; margin-top: 0.8rem; }
+.vw-imgs img { max-width: 560px; }
+.vw-imgs figure { border: 1px solid var(--rule); border-radius: 4px; padding: 0.45rem; }
+.vw-imgs figcaption { font-size: 0.78rem; margin: 0 0 0.25rem; }
+
+@media (max-width: 1150px) { .vw-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .vw-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* The panes stop being side by side well before the page gets narrow. The table's nine
+   columns need about 650px; below that the fixed columns keep their width and Task, the
+   one column that flexes, is squeezed to nothing -- at a 1000px viewport it was 13px.
+   Stacked, the list gets the full width and the plot sits under it. 1160px is where the
+   split stops paying: below it the 664px table no longer fits in 61% of the section. */
+@media (max-width: 1160px) {
+  .vw-panes { grid-template-columns: 1fr; height: auto; }
+  .vw-split { display: none; }
+  .vw-list { max-height: 50vh; border-right: 0; border-bottom: 1px solid var(--rule); }
+  .vw-detail { padding-top: 1.1rem; }
+  .vw-plot { height: clamp(300px, 48vw, 520px); }
+}
+@media (max-width: 900px) {
+  .publication-title { font-size: 1.9rem; }
+  html { font-size: 16px; }
+}
+
+/* full-screen host (viewer.html) */
+body.vw-host { margin: 0; }
+body.vw-host .vw { border: 0; border-radius: 0; }
+body.vw-host .vw-panes { height: calc(100vh - 3.1rem); }
+@media (max-width: 1160px) { body.vw-host .vw-panes { height: auto; } }
+
+.footer { background: #fff; border-top: 1px solid var(--rule); padding: 2rem 1.5rem 3rem; font-size: 0.9rem; color: var(--muted); }
+
+/* maths: KaTeX defaults to 1.21em, which is too loud inside dense tables and chips */
+.katex { font-size: 1.05em; }
+.paper-table .katex, .vw-list .katex, .vw-crumb .katex { font-size: 1em; }
+.vw-bar select { font-size: 0.95em; }
